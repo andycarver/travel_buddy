@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Add Plan</title>
+</head>
+<body>
+    <a href="{% url 'travel:index' %}">Home</a>
+    <a href="{% url 'login:logout' %}">Logout</a>
+    <h1>Add a Trip</h1>
+    <form action="{% url 'travel:create' %}" method='post'>
+        {% csrf_token %}
+        <p>Destination: <input type="text" name='destination'></p>
+        <p>Description: <input type="text" name='description'></p>
+        <p>Travel Date From: <input type="text" name='travel_date_from', placeholder="year-mm-dd"></p>
+        <p>Travel Date To: <input type="text" name='travel_date_to' placeholder="year-mm-dd"></p>
+        <p><input type="submit" value='Add'></p>
+    </form>
+</body>
+</html>
