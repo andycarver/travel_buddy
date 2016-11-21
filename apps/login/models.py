@@ -20,7 +20,7 @@ class UserManager(models.Manager):
         try:
             user = User.objects.get(username=request.POST['username'])
             password = request.POST['password'].encode()
-            if bcrypt.hashpw(password, user.password.encode()):
+            if bcrypt.checkpw(password, user.password.encode()):
                 return (True, user)
 
         except ObjectDoesNotExist:
@@ -33,8 +33,12 @@ class UserManager(models.Manager):
 
         if not request.POST['name']:
             errors.append('Name cannot be blank.')
+        if len(request.POST['name']) < 3:
+            errors.append('Name must be at least 3 characters.')
         if not request.POST['username']:
             errors.append('Username cannot be blank.')
+        if len(request.POST['username']) < 3:
+            errors.append('Username must be at least 3 characters.')
         if len(request.POST['password']) < 8:
             errors.append('Password must be at least 8 characters.')
         if request.POST['password'] != request.POST['confirm']:
